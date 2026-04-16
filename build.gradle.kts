@@ -6,9 +6,9 @@ plugins {
 
 val pluginVersion = "1.1.0"
 val minecraftVersion = "26.1.2"
-val protocolVersion = "26.1.2-SNAPSHOT"
+val protocolVersion = "26.1.2"
 val adventureVer = "4.25.0"
-val commandApiVer = "11.0.1-SNAPSHOT"
+val commandApiVer = "11.2.0"
 
 repositories {
     mavenCentral()
@@ -30,7 +30,7 @@ dependencies {
     implementation("net.kyori:adventure-text-serializer-gson:$adventureVer")
 
     // Paper
-    compileOnly("io.papermc.paper:paper-api:$minecraftVersion-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:$minecraftVersion.build.+")
 
     // Command Api
     implementation("dev.jorel:commandapi-paper-shade:$commandApiVer")

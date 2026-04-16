@@ -5,8 +5,8 @@ plugins {
 }
 
 val pluginVersion = "1.1.0"
-val minecraftVersion = "1.21.11"
-val protocolVersion = "1.21.11-SNAPSHOT"
+val minecraftVersion = "26.1.2"
+val protocolVersion = "26.1.2-SNAPSHOT"
 val adventureVer = "4.25.0"
 val commandApiVer = "11.0.1-SNAPSHOT"
 
@@ -44,7 +44,7 @@ tasks {
         dependsOn("shadowJar")
         from("build/libs") {
             include("StressTestBots-*.jar")
-            destinationDir = file("/Users/ShaneBee/Desktop/Server/Skript/1-21-11/plugins/")
+            destinationDir = file("/Users/ShaneBee/Desktop/Server/Skript/26-1-2/plugins/")
         }
 
     }
@@ -61,7 +61,7 @@ tasks {
         options.encoding = Charsets.UTF_8.name()
         exclude("com/shanebeestudios/core/plugin")
         (options as StandardJavadocDocletOptions).links(
-            "https://jd.papermc.io/paper/1.21.1/",
+            "https://jd.papermc.io/paper/26.1.2/",
             "https://jd.advntr.dev/api/4.17.0/",
             "https://repo.opencollab.dev/javadoc/maven-snapshots/org/geysermc/mcprotocollib/protocol/$protocolVersion/raw"
         )

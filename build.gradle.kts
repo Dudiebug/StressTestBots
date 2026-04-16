@@ -6,7 +6,7 @@ plugins {
 
 val pluginVersion = "1.1.0"
 val minecraftVersion = "26.1.2"
-val protocolVersion = "26.1.2"
+val protocolVersion = "26.1-SNAPSHOT"
 val adventureVer = "4.25.0"
 val commandApiVer = "11.2.0"
 
@@ -16,6 +16,7 @@ repositories {
 
     // McProtocol
     maven("https://repo.opencollab.dev/main/")
+    maven("https://repo.opencollab.dev/maven-snapshots/")
 
     // Paper
     maven("https://repo.papermc.io/repository/maven-public/")

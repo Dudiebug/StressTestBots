@@ -53,7 +53,7 @@ tasks {
         expand("version" to pluginVersion)
     }
     compileJava {
-        options.release = 21
+        options.release = 25
         options.compilerArgs.add("-Xlint:unchecked")
         options.compilerArgs.add("-Xlint:deprecation")
     }

@@ -29,13 +29,35 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@v3.3.2
-        with:
-          arguments: build
+        id: gradle
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          ./gradlew build --stacktrace --no-daemon 2>&1 | tee gradle.log
+          echo "exit_code=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+      - name: Surface Gradle failure as annotations
+        if: steps.gradle.outputs.exit_code != '0'
+        run: |
+          echo "::group::Full gradle log"
+          cat gradle.log
+          echo "::endgroup::"
+          awk '
+            /^FAILURE:|^\* What went wrong:|^\* Where:|^Caused by:|^> / { print "::error::" $0; next }
+            /Could not (resolve|find|GET)/ { print "::error::" $0; next }
+            /\.java:[0-9]+: error:/ { print "::error::" $0; next }
+          ' gradle.log || true
+          exit 1
       - name: Upload a Build Artifact
+        if: steps.gradle.outputs.exit_code == '0'
         uses: actions/upload-artifact@v4.3.3
         with:
           # Artifact name
           name: StressTestBots-Artifact
           # A file, directory or wildcard pattern that describes what to upload
           path: build/libs/StressTestBots-*.jar
+      - name: Upload gradle log on failure
+        if: always() && steps.gradle.outputs.exit_code != '0'
+        uses: actions/upload-artifact@v4.3.3
+        with:
+          name: gradle-log
+          path: gradle.log
